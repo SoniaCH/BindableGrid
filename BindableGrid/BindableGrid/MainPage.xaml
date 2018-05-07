@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BindableGrid"
+             xmlns:custom="clr-namespace:BindableGrid;assembly=BindableGrid"
+             x:Class="BindableGrid.MainPage">
+
+    <StackLayout Padding="20,40,20,20">
+
+        <custom:GalleryCustom  x:Name="ListTest"
+				               ItemsSource="{Binding DummyItems}">
+            <custom:GalleryCustom.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10" BackgroundColor="Gray">
+                        <Image Source="{Binding SmallImage}"/>
+                        <Image Source="trash.png">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference ListTest}, Path=BindingContext.DeleteCommand}" CommandParameter="{Binding}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
+                </DataTemplate>
+            </custom:GalleryCustom.ItemTemplate>
+            
+        </custom:GalleryCustom>
+        <Button Text="delete" Clicked="OnDelete"/>
+        <Label Text="test"/>
+    </StackLayout>
+
+</ContentPage>
