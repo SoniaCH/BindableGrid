@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -13,18 +14,29 @@ namespace BindableGrid
 
     public class GalleryCustomMvvm : INotifyPropertyChanged
     {
-
+        private ImagesItems _selectedItem;
+        public ImagesItems SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                _selectedItem = value;
+                OnPropertyChanged();
+            }
+        }
 
         private ObservableCollection<ImagesItems> _dummyItems;
         public ObservableCollection<ImagesItems> DummyItems
         {
-            get { return _dummyItems; }
-            set
+            get
             {
-
-                _dummyItems = value;
-                NotifyPropertyChanged("DummyItems");
-
+                return _dummyItems;
+            }
+            set
+            {               
+                    _dummyItems = value;
+                    OnPropertyChanged("DummyItems");
+             
             }
         }
         public Page CurrentPage{get;set;}
@@ -32,41 +44,35 @@ namespace BindableGrid
 
         public GalleryCustomMvvm()
         {
-           
-          // Add some data to the model
-            this.DummyItems = new ObservableCollection<ImagesItems>();
-            this.DummyItems.Add(new ImagesItems { SmallImage = "yellow.png", IsDeleted = false, TxtName = "test1" });
-            this.DummyItems.Add(new ImagesItems { SmallImage = "red.png", IsDeleted = false, TxtName = "test2" });
-            this.DummyItems.Add(new ImagesItems { SmallImage = "blue.png", IsDeleted = false, TxtName = "test3" });
-            this.DummyItems.Add(new ImagesItems { SmallImage = "greencitron.png", IsDeleted = false, TxtName = "test4" });
-            this.DummyItems.Add(new ImagesItems { SmallImage = "rose.png", IsDeleted = false, TxtName = "test5" });
-            this.DummyItems.Add(new ImagesItems { SmallImage = "lightblue.png", IsDeleted = false, TxtName = "test6" });
-            this.DummyItems.Add(new ImagesItems { SmallImage = "rose.png", IsDeleted = false, TxtName = "test8" });
+            // Add some data to the model
+            _dummyItems = new ObservableCollection<ImagesItems>();
+            this._dummyItems.Add(new ImagesItems { SmallImage = "yellow.png"});
+            this._dummyItems.Add(new ImagesItems { SmallImage = "red.png"});
+            this._dummyItems.Add(new ImagesItems { SmallImage = "blue.png"});
+            this._dummyItems.Add(new ImagesItems { SmallImage = "greencitron.png"});
+            this._dummyItems.Add(new ImagesItems { SmallImage = "rose.png"});
+            this._dummyItems.Add(new ImagesItems { SmallImage = "lightblue.png"});
            // nav.PushAsync(CurrentPage);
         }
 
-        //DeleteCommand
+        //DeleteCommand: 
 
         public ICommand DeleteCommand => new Command<object>((o) =>
         {
             var img = o as ImagesItems;
-            DummyItems.Remove(img);
-            CurrentPage.FindByName<GalleryCustom>("ListTest").ItemsSource= DummyItems;
-            DummyItems = _dummyItems;
-           
+            SelectedItem = img;
+            _dummyItems.Remove(img);
+            DummyItems = _dummyItems;          
+            //  CurrentPage.FindByName<GalleryCustom>("ListTest").ItemsSource=DummyItems;
+            //Itemsource=DummyItems;                    
         });
 
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged(String info)
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
+            var changed = PropertyChanged;
+            changed?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
 
     }
 }
