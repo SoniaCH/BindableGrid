@@ -6,7 +6,7 @@
              x:Class="BindableGrid.MainPage">
     <StackLayout Padding="20,40,20,20">
         <custom:GalleryCustom  x:Name="ListTest"
-                               
+                               ItemsSource="{Binding DummyItems}"
                                ItemSelected="{Binding SelectedItem}">
             <custom:GalleryCustom.ItemTemplate>
                 <DataTemplate>
@@ -21,8 +21,8 @@
                 </DataTemplate>
             </custom:GalleryCustom.ItemTemplate>
         </custom:GalleryCustom>
-        <Button Text="delete" Clicked="OnDelete"/>
-        <Button Text="Test" Clicked="OnTest"/>
+        <!--<Button Text="delete" Clicked="OnDelete"/>
+        <Button Text="Test" Clicked="OnTest"/>-->
         <Image Source="{Binding SelectedItem.SmallImage}"/>
         <Label Text="test"/>
     </StackLayout>

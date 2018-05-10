@@ -35,8 +35,7 @@ namespace BindableGrid
             set
             {               
                     _dummyItems = value;
-                    OnPropertyChanged("DummyItems");
-             
+                    OnPropertyChanged("DummyItems");             
             }
         }
         public Page CurrentPage{get;set;}
@@ -45,26 +44,52 @@ namespace BindableGrid
         public GalleryCustomMvvm()
         {
             // Add some data to the model
+            #region fill the collection
             _dummyItems = new ObservableCollection<ImagesItems>();
-            this._dummyItems.Add(new ImagesItems { SmallImage = "yellow.png"});
-            this._dummyItems.Add(new ImagesItems { SmallImage = "red.png"});
-            this._dummyItems.Add(new ImagesItems { SmallImage = "blue.png"});
-            this._dummyItems.Add(new ImagesItems { SmallImage = "greencitron.png"});
-            this._dummyItems.Add(new ImagesItems { SmallImage = "rose.png"});
-            this._dummyItems.Add(new ImagesItems { SmallImage = "lightblue.png"});
-           // nav.PushAsync(CurrentPage);
+            this._dummyItems.Add(new ImagesItems { SmallImage = "yellow.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "red.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "blue.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "greencitron.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "rose.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "lightblue.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "yellow.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "red.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "blue.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "greencitron.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "rose.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "lightblue.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "yellow.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "red.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "blue.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "greencitron.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "rose.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "lightblue.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "yellow.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "red.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "blue.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "greencitron.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "rose.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "lightblue.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "yellow.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "red.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "blue.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "greencitron.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "rose.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "lightblue.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "yellow.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "red.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "blue.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "greencitron.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "rose.png" });
+            this._dummyItems.Add(new ImagesItems { SmallImage = "lightblue.png" });
+            #endregion          
         }
-
         //DeleteCommand: 
-
         public ICommand DeleteCommand => new Command<object>((o) =>
         {
             var img = o as ImagesItems;
             SelectedItem = img;
-            _dummyItems.Remove(img);
-            DummyItems = _dummyItems;          
-            //  CurrentPage.FindByName<GalleryCustom>("ListTest").ItemsSource=DummyItems;
-            //Itemsource=DummyItems;                    
+            DummyItems.Remove(img);                    
         });
 
         public event PropertyChangedEventHandler PropertyChanged;

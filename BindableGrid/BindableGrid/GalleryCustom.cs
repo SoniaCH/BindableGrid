@@ -8,6 +8,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Collections.Specialized;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace BindableGrid
 {
@@ -36,21 +37,13 @@ namespace BindableGrid
                 CreateGrid();
             }            
         }
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
-
-        void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
-        {
-            var changed = CollectionChanged;
-            if (changed != null)
-                changed(this, e);
-        }
-
+   
 
         /// <summary>
         /// ItemSelectedProperty.
         /// </summary>
         public static BindableProperty ItemSelectedProperty =
-            BindableProperty.Create(nameof(ItemSelected), typeof(object), typeof(GalleryCustom), default(object), BindingMode.OneWayToSource);
+            BindableProperty.Create(nameof(ItemSelected), typeof(object), typeof(GalleryCustom), default(object), BindingMode.TwoWay);
         public object ItemSelected
         {
             get { return (object)GetValue(ItemSelectedProperty); }
@@ -59,10 +52,8 @@ namespace BindableGrid
         //Property
 
         public static readonly BindableProperty ItemsSourceProperty =
-            BindableProperty.Create(nameof(ItemsSource), typeof(IEnumerable<object>), typeof(GalleryCustom), null);
+            BindableProperty.Create(nameof(ItemsSource), typeof(IEnumerable<object>), typeof(GalleryCustom), default(IEnumerable<object>),BindingMode.TwoWay);
 
-        //public static readonly BindableProperty ItemsSourceProperty = 
-        //    BindableProperty.Create(nameof(ItemsSource), typeof(IEnumerable<object>), typeof(GalleryCustom), null);
         public IEnumerable<object> ItemsSource
         {
             get { return (IEnumerable<object>)GetValue(ItemsSourceProperty); }
@@ -71,11 +62,9 @@ namespace BindableGrid
                 SetValue(ItemsSourceProperty, value);
             }
         }
-       
-        //private static void OnIsSourceChanged(BindableObject bindable, object oldValue, object newValue)
-        //{
-        //    ((GalleryCustom)bindable).CreateGrid();
-        //}
+
+
+
 
         public static readonly BindableProperty ItemTemplateProperty = BindableProperty.Create(nameof(ItemTemplate), typeof(DataTemplate), typeof(GalleryCustom), null);
         public DataTemplate ItemTemplate
@@ -83,7 +72,7 @@ namespace BindableGrid
             get { return (DataTemplate)GetValue(ItemTemplateProperty); }
             set { SetValue(ItemTemplateProperty, value); }
         }
-     
+
         //methods
         double intWidth = Device.info.PixelScreenSize.Width - 100;
         private void CreateGrid()
@@ -114,7 +103,7 @@ namespace BindableGrid
                     }
                     if (_col < _c && _index < _count)
                     {
-                    var item = ItemsSource.ElementAt(_index);
+                        var item = ItemsSource.ElementAt(_index);
                         this.Children.Add(CreateCellView(item), _col, _row);
                         _col++;
                     }
